@@ -10,8 +10,11 @@ const multer=require("multer");
 const path = require("path");
 
 dotenv.config()
-const PORT=process.env.PORT
+
 app.use(express.json());
+app.use("/",(req,res)=>{
+  res.send("Server is running")
+})
 app.use("/images", express.static(path.join(__dirname, "/images")));
 mongoose.connect(process.env.MONGO_URL,{
     useNewUrlParser:true,
@@ -41,6 +44,6 @@ app.use("/api/categories",categoryRoute);
 app.use("/blog",(req,res)=>{
     console.log("hello blog");
 })
-app.listen(PORT,()=>{
+app.listen(process.env.PORT ||5000,()=>{
     console.log("Backend is running");
 })
